@@ -3,10 +3,17 @@
 namespace app\core;
 
 use app\core\interface\RouterInterface;
+use Exception;
 
 class Router implements RouterInterface
 {
     private array $routers = [];
+    private Request $request;
+
+    public function useRequest(Request $request)
+    {
+        $this->request = $request;
+    }
 
     public function get(string $url, string|array|callable $handler): void
     {
@@ -18,11 +25,22 @@ class Router implements RouterInterface
         $this->routers["post"][$url] = $handler;
     }
 
+    private function allowedMethods(): array
+    {
+        return ["get", "post", "put"];
+    }
+
     public function resolve()
     {
-        echo "<pre>";
-        echo var_dump($_SERVER);
-        echo "</pre>";
-        die;
+        $url = $this->request?->getUrl();
+        $method = $this->request?->getMethod();
+        if (!$method || !in_array($method, $this->allowedMethods())) {
+            throw new Exception("Method is not found or not allowed");
+        }
+        $handler = $this->routers[$method][$url] ?? false;
+        if ($handler == false) {
+            throw new Exception("Page is not found", 404);
+        }
+        echo call_user_func($handler);
     }
 }
