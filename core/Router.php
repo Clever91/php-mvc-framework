@@ -10,9 +10,9 @@ class Router implements RouterInterface
     private array $routers = [];
     private Request $request;
 
-    public function useRequest(Request $request)
+    public function __construct(Request $resquest)
     {
-        $this->request = $request;
+        $this->request = $resquest;
     }
 
     public function get(string $url, string|array|callable $handler): void
@@ -30,7 +30,7 @@ class Router implements RouterInterface
         return ["get", "post", "put"];
     }
 
-    public function resolve()
+    public function resolve(): string
     {
         $url = $this->request?->getUrl();
         $method = $this->request?->getMethod();
@@ -39,8 +39,16 @@ class Router implements RouterInterface
         }
         $handler = $this->routers[$method][$url] ?? false;
         if ($handler == false) {
-            throw new Exception("Page is not found", 404);
+            return "Page is not found";
         }
-        echo call_user_func($handler);
+        if (is_string($handler)) {
+            return $this->renderView($handler);
+        }
+        return call_user_func($handler);
+    }
+
+    private function renderView(string $view)
+    {
+        require_once(__DIR__ . "/../views/{$view}.php");
     }
 }

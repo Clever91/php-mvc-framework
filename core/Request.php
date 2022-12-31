@@ -13,7 +13,7 @@ class Request implements RequestInterface
         if ($position === false) {
             return $url;
         }
-        return substr($url, $position);
+        return substr($url, 0, $position);
     }
 
     public function getMethod(): string
