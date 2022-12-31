@@ -1,0 +1,17 @@
+{
+    "name": "sherzod/mvc-php-framework",
+    "description": "This is for educational",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Shezod Usmonov",
+            "email": "sherzod.usmon.91@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    }
+}
