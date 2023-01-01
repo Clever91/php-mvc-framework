@@ -47,7 +47,7 @@ class Router implements RouterInterface
         return call_user_func($handler);
     }
 
-    private function renderView(string $view)
+    private function renderView(string $view): mixed
     {
         require_once(__DIR__ . "/../views/{$view}.php");
     }
