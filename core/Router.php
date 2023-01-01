@@ -7,6 +7,8 @@ use Exception;
 
 class Router implements RouterInterface
 {
+    public string $layout = "main";
+
     private array $routers = [];
     private Request $request;
 
@@ -49,6 +51,22 @@ class Router implements RouterInterface
 
     private function renderView(string $view): mixed
     {
-        require_once(__DIR__ . "/../views/{$view}.php");
+        $layoutContent = $this->getLayout();
+        $viewContent = $this->getView($view);
+        return str_replace("{{content}}", $viewContent, $layoutContent);
+    }
+
+    private function getLayout(): string
+    {
+        ob_start();
+        require_once Application::$ROOT_DIR . "/views/layouts/{$this->layout}.php";
+        return ob_get_clean();
+    }
+
+    private function getView(string $view): string
+    {
+        ob_start();
+        require_once Application::$ROOT_DIR . "/views/{$view}.php";
+        return ob_get_clean();
     }
 }

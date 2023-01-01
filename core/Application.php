@@ -4,11 +4,12 @@ namespace app\core;
 
 class Application
 {
+    public static string $ROOT_DIR;
     public Router $router;
-    public Request $request;
 
-    public function __construct()
+    public function __construct(string $rootDir)
     {
+        self::$ROOT_DIR = $rootDir;
         $this->router = new Router(new Request());
     }
 
