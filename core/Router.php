@@ -3,6 +3,8 @@
 namespace app\core;
 
 use app\core\interface\RouterInterface;
+use app\core\Request;
+use app\core\Response;
 use Exception;
 
 class Router implements RouterInterface
@@ -11,10 +13,12 @@ class Router implements RouterInterface
 
     private array $routers = [];
     private Request $request;
+    private Response $response;
 
-    public function __construct(Request $resquest)
+    public function __construct(Request $resquest, Response $response)
     {
         $this->request = $resquest;
+        $this->response = $response;
     }
 
     public function get(string $url, string|array|callable $handler): void
@@ -37,11 +41,13 @@ class Router implements RouterInterface
         $url = $this->request?->getUrl();
         $method = $this->request?->getMethod();
         if (!$method || !in_array($method, $this->allowedMethods())) {
-            throw new Exception("Method is not found or not allowed");
+            $this->response->setCode(500);
+            return $this->renderView("error");
         }
         $handler = $this->routers[$method][$url] ?? false;
         if ($handler == false) {
-            return "Page is not found";
+            $this->response->setCode(404);
+            return $this->renderView("error");
         }
         if (is_string($handler)) {
             return $this->renderView($handler);
