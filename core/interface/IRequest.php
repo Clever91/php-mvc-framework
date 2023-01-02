@@ -2,7 +2,7 @@
 
 namespace app\core\interface;
 
-interface RequestInterface
+interface IRequest
 {
     public function getUrl(): string;
     public function getMethod(): string;

@@ -2,7 +2,7 @@
 
 namespace app\core\interface;
 
-interface ResponseInterface
+interface IResponse
 {
     public function setStatusCode(int $code): void;
 }

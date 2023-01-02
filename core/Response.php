@@ -2,9 +2,9 @@
 
 namespace app\core;
 
-use app\core\interface\ResponseInterface;
+use app\core\interface\IResponse;
 
-class Response implements ResponseInterface
+class Response implements IResponse
 {
     public function setStatusCode(int $code): void
     {

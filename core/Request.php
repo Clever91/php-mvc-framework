@@ -2,9 +2,9 @@
 
 namespace app\core;
 
-use app\core\interface\RequestInterface;
+use app\core\interface\IRequest;
 
-class Request implements RequestInterface
+class Request implements IRequest
 {
     public function getUrl(): string
     {

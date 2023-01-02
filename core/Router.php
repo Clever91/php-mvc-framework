@@ -2,12 +2,11 @@
 
 namespace app\core;
 
-use app\core\interface\RouterInterface;
+use app\core\interface\IRouter;
 use app\core\Request;
 use app\core\Response;
-use Exception;
 
-class Router implements RouterInterface
+class Router implements IRouter
 {
     public string $layout = "main";
 
@@ -51,11 +50,13 @@ class Router implements RouterInterface
         }
         if (is_string($handler)) {
             return $this->renderView($handler);
+        } else if (is_array($handler)) {
+            $handler[0] = new $handler[0];
         }
         return call_user_func($handler);
     }
 
-    public function renderView(string $view, $params = []): mixed
+    public function renderView(string $view, array $params = []): mixed
     {
         $layoutContent = $this->getLayout();
         $viewContent = $this->getView($view, $params);
@@ -69,7 +70,7 @@ class Router implements RouterInterface
         return ob_get_clean();
     }
 
-    private function getView(string $view, $params): string
+    private function getView(string $view, array $params): string
     {
         foreach ($params as $key => $value)
             $$key = $value;
