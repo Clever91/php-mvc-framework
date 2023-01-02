@@ -53,7 +53,7 @@ class Router implements IRouter
         } else if (is_array($handler)) {
             $handler[0] = new $handler[0];
         }
-        return call_user_func($handler);
+        return call_user_func($handler, $this->request);
     }
 
     public function renderView(string $view, array $params = []): mixed
