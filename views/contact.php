@@ -14,6 +14,6 @@
         <textarea name="body" class="form-control" rows="3"></textarea>
     </div>
     <div class="mb-3">
-        <button class="form-control" name="submit" type="submit" class="btn btn-primary">Send Us</button>
+        <button class="form-control btn btn-primary" name="submit" type="submit">Send Us</button>
     </div>
 </form>

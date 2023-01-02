@@ -2,6 +2,8 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
+use app\controllers\AuthController;
+use app\controllers\RegisterController;
 use app\controllers\SiteController;
 use app\core\Application;
 
@@ -10,4 +12,8 @@ $app->router->get("/", [SiteController::class, "home"]);
 $app->router->get("/about", "about");
 $app->router->get("/contact", [SiteController::class, "contact"]);
 $app->router->post("/contact", [SiteController::class, "handleContact"]);
+// auth and register
+$app->router->match(["get", "post"], "/signUp", [RegisterController::class, "signUp"]);
+$app->router->match(["get", "post"], "/signIn", [AuthController::class, "signIn"]);
+// run application
 $app->run();

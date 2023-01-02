@@ -30,6 +30,12 @@ class Router implements IRouter
         $this->routers["post"][$url] = $handler;
     }
 
+    public function match(array $methods, string $url, string|array|callable $handler): void
+    {
+        foreach ($methods as $method)
+            $this->routers[strtolower($method)][$url] = $handler;
+    }
+
     private function allowedMethods(): array
     {
         return ["get", "post", "put"];
