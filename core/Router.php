@@ -41,12 +41,12 @@ class Router implements RouterInterface
         $url = $this->request?->getUrl();
         $method = $this->request?->getMethod();
         if (!$method || !in_array($method, $this->allowedMethods())) {
-            $this->response->setCode(500);
+            $this->response->setStatusCode(500);
             return $this->renderView("error");
         }
         $handler = $this->routers[$method][$url] ?? false;
         if ($handler == false) {
-            $this->response->setCode(404);
+            $this->response->setStatusCode(404);
             return $this->renderView("error");
         }
         if (is_string($handler)) {

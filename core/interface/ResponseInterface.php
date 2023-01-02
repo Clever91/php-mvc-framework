@@ -4,5 +4,5 @@ namespace app\core\interface;
 
 interface ResponseInterface
 {
-    public function setCode(int $code): void;
+    public function setStatusCode(int $code): void;
 }
