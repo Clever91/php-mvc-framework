@@ -8,11 +8,13 @@ use app\core\Response;
 
 class Application
 {
-    public static string $ROOT_DIR;
     public Router $router;
+    public static Application $app;
+    public static string $ROOT_DIR;
 
     public function __construct(string $rootDir)
     {
+        self::$app = $this;
         self::$ROOT_DIR = $rootDir;
         $this->router = new Router(new Request(), new Response());
     }

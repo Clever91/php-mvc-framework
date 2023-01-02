@@ -55,10 +55,10 @@ class Router implements RouterInterface
         return call_user_func($handler);
     }
 
-    private function renderView(string $view): mixed
+    public function renderView(string $view, $params = []): mixed
     {
         $layoutContent = $this->getLayout();
-        $viewContent = $this->getView($view);
+        $viewContent = $this->getView($view, $params);
         return str_replace("{{content}}", $viewContent, $layoutContent);
     }
 
@@ -69,8 +69,10 @@ class Router implements RouterInterface
         return ob_get_clean();
     }
 
-    private function getView(string $view): string
+    private function getView(string $view, $params): string
     {
+        foreach ($params as $key => $value)
+            $$key = $value;
         ob_start();
         require_once Application::$ROOT_DIR . "/views/{$view}.php";
         return ob_get_clean();
