@@ -21,6 +21,9 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/welcome">Welcome</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/about">About Us</a>
                     </li>
                     <li class="nav-item">
