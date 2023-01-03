@@ -8,8 +8,6 @@ use app\core\Response;
 
 class Router implements IRouter
 {
-    public string $layout = "main";
-
     private array $routers = [];
     private Request $request;
     private Response $response;
@@ -57,7 +55,8 @@ class Router implements IRouter
         if (is_string($handler)) {
             return $this->renderView($handler);
         } else if (is_array($handler)) {
-            $handler[0] = new $handler[0];
+            Application::$app->controller = new $handler[0];
+            $handler[0] = Application::$app->controller;
         }
         return call_user_func($handler, $this->request);
     }
@@ -71,8 +70,9 @@ class Router implements IRouter
 
     private function getLayout(): string
     {
+        $layout = Application::$app->controller?->layout ?? "main";
         ob_start();
-        require_once Application::$ROOT_DIR . "/views/layouts/{$this->layout}.php";
+        require_once Application::$ROOT_DIR . "/views/layouts/{$layout}.php";
         return ob_get_clean();
     }
 

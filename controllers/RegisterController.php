@@ -7,10 +7,13 @@ use app\core\Request;
 
 class RegisterController extends Controller
 {
+    public string $layout = "auth";
+
     public function signUp(Request $request)
     {
         if ($request->isPost())
             return "Handling register data";
+
         return $this->render("sign-up");
     }
 }

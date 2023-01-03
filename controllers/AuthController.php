@@ -9,8 +9,11 @@ class AuthController extends Controller
 {
     public function signIn(Request $request)
     {
+        $this->setLayout("auth");
+
         if ($request->isPost())
             return "Handling auth data";
+
         return $this->render("sign-in");
     }
 }

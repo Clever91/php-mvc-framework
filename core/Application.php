@@ -11,6 +11,7 @@ class Application
     public Router $router;
     public static Application $app;
     public static string $ROOT_DIR;
+    public Controller $controller;
 
     public function __construct(string $rootDir)
     {
