@@ -27,3 +27,4 @@
         <button class="form-control btn btn-primary" name="submit" type="submit">Send Us</button>
     </div>
 </form>
+<span>If you already have an account, you may <a href="/signIn" class="btn btn-link">sign in</a></span>

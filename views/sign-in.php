@@ -13,3 +13,4 @@
         <button class="form-control btn btn-primary" name="submit" type="submit">Sign In</button>
     </div>
 </form>
+<span>If you don't have an account, you may <a href="/signUp" class="btn btn-link">sign up</a></span>
