@@ -9,17 +9,21 @@
         <label class="form-label">Email address</label>
         <input name="email" type="email" class="form-control" placeholder="name@example.com">
     </div>
+    <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input name="username" type="text" class="form-control" placeholder="Enter username here...">
+    </div>
     <div class="row">
-        <div class="col">
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input name="username" type="text" class="form-control" placeholder="Enter username here...">
-            </div>
-        </div>
         <div class="col">
             <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input name="password" type="password" class="form-control">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input name="confirmPassword" type="password" class="form-control">
             </div>
         </div>
     </div>
