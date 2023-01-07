@@ -12,9 +12,15 @@ class Register extends Model
     public string $password;
     public string $confirmPassword;
 
-    public function register(): bool
+    public function attributes(): array
     {
-        return true;
+        return [
+            "fullname" => "string",
+            "email" => "string",
+            "username" => "string",
+            "password" => "string",
+            "confirmPassword" => "string",
+        ];
     }
 
     public function rules(): array
@@ -23,8 +29,13 @@ class Register extends Model
             "fullname" => [self::RULE_REQUIRED],
             "email" => [self::RULE_REQUIRED, self::RULE_EMAIL],
             "username" => [self::RULE_REQUIRED, [self::RULE_MIN, "min" => 3]],
-            "password" => [self::RULE_REQUIRED, [self::RULE_MIN, "min" => 3], [self::RULE_MIN, "max" => 32]],
+            "password" => [self::RULE_REQUIRED, [self::RULE_MIN, "min" => 3], [self::RULE_MAX, "max" => 32]],
             "confirmPassword" => [self::RULE_REQUIRED, [self::RULE_MATCH, "match" => "password"]],
         ];
+    }
+
+    public function register(): bool
+    {
+        return true;
     }
 }

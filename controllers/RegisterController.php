@@ -19,10 +19,10 @@ class RegisterController extends Controller
             if ($model->validate() && $model->register()) {
                 return "success";
             }
-            Logger::dump($model->getErrors());
-            return "Handling register data";
         }
 
-        return $this->render("sign-up");
+        return $this->render("sign-up", [
+            "model" => $model
+        ]);
     }
 }

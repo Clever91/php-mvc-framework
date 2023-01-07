@@ -14,6 +14,14 @@ abstract class Model implements IModel
 
     private array $errors = [];
 
+    public function __construct()
+    {
+        foreach ($this->attributes() as $property => $type) {
+            if ($type == "string")
+                $this->{$property} = '';
+        }
+    }
+
     public function loadData(array $data): void
     {
         foreach ($data as $key => $value) {
@@ -57,6 +65,18 @@ abstract class Model implements IModel
         return $this->errors;
     }
 
+    public function hasError(string $attribute): bool
+    {
+        return isset($this->errors[$attribute]) ? true : false;
+    }
+
+    public function getFirstError(string $attribute): string
+    {
+        if ($this->hasError($attribute))
+            return $this->errors[$attribute][0];
+        return "";
+    }
+
     private function addError(string $attribute, string $rule, array $params = []): void
     {
         $message = $this->getErrorMessage($rule);
@@ -71,11 +91,11 @@ abstract class Model implements IModel
     private function getErrorMessage(string $rule): string
     {
         return match ($rule) {
-            self::RULE_REQUIRED => "This field is reuired",
-            self::RULE_EMAIL => "This field must be valid for email format",
-            self::RULE_MIN => "The lenght must not be less then {min}",
-            self::RULE_MAX => "The lenght must not be more then {max}",
-            self::RULE_MATCH => "The field must be match for {match} field",
+            self::RULE_REQUIRED => "This field is required",
+            self::RULE_EMAIL => "This field is not email format",
+            self::RULE_MIN => "The lenght must not be less then {min} charaters",
+            self::RULE_MAX => "The lenght must not be more then {max} charaters",
+            self::RULE_MATCH => "The field must be the same as {match} field",
             default => "The given rule is invalid"
         };
     }
