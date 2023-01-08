@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\core\Request;
+use app\models\Login;
 
 class AuthController extends Controller
 {
@@ -11,9 +12,16 @@ class AuthController extends Controller
     {
         $this->setLayout("auth");
 
-        if ($request->isPost())
-            return "Handling auth data";
+        $model = new Login();
+        if ($request->isPost()) {
+            $model->loadData($request->getBody());
+            if ($model->validate()) {
+                return "success";
+            }
+        }
 
-        return $this->render("sign-in");
+        return $this->render("sign-in", [
+            "model" => $model
+        ]);
     }
 }
