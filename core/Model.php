@@ -17,8 +17,10 @@ abstract class Model implements IModel
     public function __construct()
     {
         foreach ($this->attributes() as $property => $type) {
-            if ($type == "string")
+            if ($type === "string")
                 $this->{$property} = '';
+            // if ($type === "bool")
+            //     $this->{$property} = 0;
         }
     }
 

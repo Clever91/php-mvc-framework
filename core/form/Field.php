@@ -9,6 +9,7 @@ class Field
     public const TYPE_TEXT = 'text';
     public const TYPE_PASSWORD = 'password';
     public const TYPE_EMAIL = 'email';
+    public const TYPE_CHECKBOX = 'checkbox';
 
     protected Model $model;
     protected string $attribute;
@@ -27,16 +28,22 @@ class Field
 
     public function __toString(): string
     {
+        $value = $this->model->{$this->attribute};
+        if ($this->type == self::TYPE_CHECKBOX)
+            $value = $value ? "true" : "false";
         return sprintf(
             '
-        <label class="form-label">%s</label>
-        <input name="%s" type="%s" class="form-control %s" value="%s">
+        <label class="%s">%s</label>
+        <input name="%s" type="%s" class="%s %s" value="%s" %s>
         <small class="text-danger">%s</small>',
+            $this->option["labelClass"] ?? "",
             $this->label,
             $this->attribute,
             $this->type,
+            $this->option["inputClass"] ?? "",
             $this->model->hasError($this->attribute) ? 'is-invalid' : '',
-            $this->model->{$this->attribute},
+            $value,
+            $this->type == self::TYPE_CHECKBOX ? 'checked="' . $value . '"' : '',
             $this->model->getFirstError($this->attribute)
         );
     }

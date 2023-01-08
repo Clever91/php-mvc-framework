@@ -23,7 +23,8 @@ class Button
     public function __toString(): string
     {
         return sprintf(
-            '<button class="form-control btn btn-primary" name="%s" type="%s">%s</button>',
+            '<button class="%s" name="%s" type="%s">%s</button>',
+            $this->option["class"] ?? "",
             $this->name,
             $this->type,
             $this->label

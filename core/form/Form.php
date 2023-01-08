@@ -27,6 +27,11 @@ class Form
         return new Field($model, $attribute, Field::TYPE_PASSWORD, $label, $option);
     }
 
+    public function checkboxField(Model $model, string $attribute, string $label = null, array $option = [])
+    {
+        return new Field($model, $attribute, Field::TYPE_CHECKBOX, $label, $option);
+    }
+
     public function buttonField(string $name, string $label = null, array $option = [])
     {
         return new Button($name, Button::TYPE_BUTTON, $label, $option);
