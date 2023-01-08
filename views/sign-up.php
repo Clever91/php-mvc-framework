@@ -28,7 +28,7 @@ $form = Form::begin('', 'post'); ?>
 </div>
 
 <div class="mb-3">
-    <button class="form-control btn btn-primary" name="submit" type="submit">Sign Up</button>
+    <?= $form->submitField(name: "submit", label: "Sign Up") ?>
 </div>
 <?php Form::end(); ?>
 <span>If you already have an account, you may <a href="/signIn" class="btn btn-link">sign in</a></span>

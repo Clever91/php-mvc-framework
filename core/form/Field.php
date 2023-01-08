@@ -10,11 +10,11 @@ class Field
     public const TYPE_PASSWORD = 'password';
     public const TYPE_EMAIL = 'email';
 
-    private Model $model;
-    private string $attribute;
-    private string $type;
-    private string $label;
-    private array $option = [];
+    protected Model $model;
+    protected string $attribute;
+    protected string $type;
+    protected string $label;
+    protected array $option = [];
 
     public function __construct(Model $model, string $attribute, string $type, string $label, array $option = [])
     {

@@ -27,6 +27,16 @@ class Form
         return new Field($model, $attribute, Field::TYPE_PASSWORD, $label, $option);
     }
 
+    public function buttonField(string $name, string $label = null, array $option = [])
+    {
+        return new Button($name, Button::TYPE_BUTTON, $label, $option);
+    }
+
+    public function submitField(string $name, string $label = null, array $option = [])
+    {
+        return new Button($name, Button::TYPE_SUBMIT, $label, $option);
+    }
+
     public static function end(): void
     {
         echo "</form>";

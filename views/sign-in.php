@@ -20,7 +20,7 @@ $form = Form::begin('', 'post'); ?>
 </div>
 
 <div class="mb-3">
-    <button class="form-control btn btn-primary" name="submit" type="submit">Sign In</button>
+    <?= $form->submitField(name: "submit", label: "Sign In") ?>
 </div>
 <?php Form::end(); ?>
 
