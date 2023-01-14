@@ -1,12 +1,12 @@
 <?php
 
 use app\core\Application;
+use app\core\Migration;
 
-class m0001_initial
+class m0001_initial extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        $db = Application::$app->db;
         $sql = "CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             fullname VARCHAR(255) NOT NULL,
@@ -15,29 +15,12 @@ class m0001_initial
             state TINYINT(1) NOT NULL DEFAULT 1,
             created_at TIMESTAMP NOT NULL DEFAULT current_timestamp
         )";
-        try {
-            $db->pdo->beginTransaction();
-            $statement = $db->pdo->prepare($sql);
-            $statement->execute();
-            // $db->pdo->commit();
-        } catch (PDOException $e) {
-            // $db->pdo->rollBack();
-            echo $e->getMessage() . PHP_EOL;
-        }
+        $this->execute($sql);
     }
 
-    public function down()
+    public function down(): void
     {
-        $db = Application::$app->db;
         $sql = "DROP TABLE IF EXISTS users";
-        $db->pdo->beginTransaction();
-        try {
-            $statement = $db->pdo->prepare($sql);
-            $statement->execute();
-            $db->pdo->commit();
-        } catch (PDOException $e) {
-            $db->pdo->rollBack();
-            echo $e->getMessage() . PHP_EOL;
-        }
+        $this->execute($sql);
     }
 }
