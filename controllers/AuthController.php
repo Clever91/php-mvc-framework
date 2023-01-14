@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\core\Controller;
+use app\core\Logger;
 use app\core\Request;
 use app\models\Login;
 
@@ -15,6 +16,7 @@ class AuthController extends Controller
         $model = new Login();
         if ($request->isPost()) {
             $model->loadData($request->getBody());
+            // Logger::dump($model);
             if ($model->validate()) {
                 return "success";
             }

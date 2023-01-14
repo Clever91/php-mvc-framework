@@ -4,3 +4,7 @@ I must learn those subject deaply
 2. call_user_func and call_user_func_array
 3. filter_input($method_consts[$method], $value, FILTER_SANITIZE_SPECIAL_CHARS)
 4. property_exists, filter_var, sprintf
+5. php pdo  https://www.phptutorial.net/php-pdo/pdo-connecting-to-postgresql/
+6. dotenv 
+7. scandir, array_filter, array_diff, pathinfo, 
+8. pdo beginTransaction

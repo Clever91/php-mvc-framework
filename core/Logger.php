@@ -11,4 +11,10 @@ class Logger
         echo "</pre>";
         exit();
     }
+
+    public static function log(array|string|object $data): void
+    {
+        var_dump($data);
+        exit();
+    }
 }
