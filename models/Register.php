@@ -12,14 +12,14 @@ class Register extends Model
     public string $password;
     public string $confirmPassword;
 
-    public static function tableName(): string
+    public function tableName(): string
     {
         return "users";
     }
 
     public function attributes(): array
     {
-        return ["fullname", "email", "username", "password", "confirmPassword"];
+        return ["fullname", "email", "username", "password"];
     }
 
     public function rules(): array
@@ -33,8 +33,8 @@ class Register extends Model
         ];
     }
 
-    public function register(): bool
+    protected function beforeSave(): void
     {
-        return true;
+        $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 }

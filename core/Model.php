@@ -3,10 +3,11 @@
 namespace app\core;
 
 use app\core\interface\IModel;
-use Throwable;
+use PDO;
 
 abstract class Model implements IModel
 {
+    public const RULE_NONE = "none";
     public const RULE_REQUIRED = "required";
     public const RULE_EMAIL = "email";
     public const RULE_MIN = "min";
@@ -14,11 +15,13 @@ abstract class Model implements IModel
     public const RULE_MATCH = "match";
     public const RULE_UNIQUE = "unique";
 
+    private PDO $pdo;
     private array $errors = [];
 
     public function __construct()
     {
-        foreach ($this->attributes() as $attribute) {
+        $this->pdo = Application::$app->db->pdo;
+        foreach (array_keys($this->rules()) as $attribute) {
             $this->{$attribute} = "";
         }
     }
@@ -61,7 +64,7 @@ abstract class Model implements IModel
                     $uniqueAttr = $rule["attribute"] ?? $attribute;
                     $tableName = $className::tableName();
                     $sql = "SELECT * FROM {$tableName} WHERE $uniqueAttr = :attribute";
-                    $statement = Application::$app->db->pdo->prepare($sql);
+                    $statement = $this->pdo->prepare($sql);
                     $statement->bindValue(":attribute", $value);
                     $statement->execute();
                     if ($statement->fetchObject()) {
@@ -72,6 +75,31 @@ abstract class Model implements IModel
             }
         }
         return empty($this->errors);
+    }
+
+    protected function beforeSave(): void
+    {
+        //It is possibale that the child can use this method
+    }
+
+    final public function save(): bool
+    {
+        $this->beforeSave();
+        $params = [];
+        $values = [];
+        foreach ($this->attributes() as $attribute) {
+            $params[$attribute] = $this->{$attribute};
+            $values[] = ":{$attribute}";
+        }
+        $tableName = $this->tableName();
+        $values = implode(",", $values);
+        $columns = implode(",", $this->attributes());
+        $sql = "INSERT INTO {$tableName}({$columns}) VALUES({$values})";
+        $statement = $this->pdo->prepare($sql);
+        foreach ($params as $key => $value)
+            $statement->bindValue($key, $value);
+        $statement->execute();
+        return true;
     }
 
     public function getErrors(): array

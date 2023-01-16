@@ -16,8 +16,8 @@ class RegisterController extends Controller
         $model = new Register();
         if ($request->isPost()) {
             $model->loadData($request->getBody());
-            if ($model->validate() && $model->register()) {
-                return "success";
+            if ($model->validate() && $model->save()) {
+                return $this->redirect("/");
             }
         }
 

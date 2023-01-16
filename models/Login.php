@@ -10,6 +10,11 @@ class Login extends Model
     public string $password;
     public bool $remenberMe = true;
 
+    public function tableName(): string
+    {
+        return "users";
+    }
+
     public function attributes(): array
     {
         return ["username", "password", "remenberMe"];

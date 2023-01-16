@@ -18,4 +18,9 @@ class Controller implements IController
     {
         return Application::$app->router->renderView($view, $params);
     }
+
+    public function redirect(string $url = '/'): void
+    {
+        header("Location: {$url}");
+    }
 }
