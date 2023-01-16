@@ -9,4 +9,5 @@ interface IModel
     public function rules(): array;
     public function attributes(): array;
     public function getErrors(): array;
+    public static function tableName(): string;
 }

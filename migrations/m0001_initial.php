@@ -1,6 +1,5 @@
 <?php
 
-use app\core\Application;
 use app\core\Migration;
 
 class m0001_initial extends Migration

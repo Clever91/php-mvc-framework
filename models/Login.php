@@ -12,11 +12,7 @@ class Login extends Model
 
     public function attributes(): array
     {
-        return [
-            "username" => "string",
-            "password" => "string",
-            "remenberMe" => "bool",
-        ];
+        return ["username", "password", "remenberMe"];
     }
 
     public function rules(): array

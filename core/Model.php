@@ -3,6 +3,7 @@
 namespace app\core;
 
 use app\core\interface\IModel;
+use Throwable;
 
 abstract class Model implements IModel
 {
@@ -11,16 +12,14 @@ abstract class Model implements IModel
     public const RULE_MIN = "min";
     public const RULE_MAX = "max";
     public const RULE_MATCH = "match";
+    public const RULE_UNIQUE = "unique";
 
     private array $errors = [];
 
     public function __construct()
     {
-        foreach ($this->attributes() as $property => $type) {
-            if ($type === "string")
-                $this->{$property} = '';
-            // if ($type === "bool")
-            //     $this->{$property} = 0;
+        foreach ($this->attributes() as $attribute) {
+            $this->{$attribute} = "";
         }
     }
 
@@ -56,6 +55,19 @@ abstract class Model implements IModel
                 }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule["match"]}) {
                     $this->addError($attribute, self::RULE_MATCH, $rule);
+                }
+                if ($ruleName === self::RULE_UNIQUE) {
+                    $className = $rule["class"] ?? get_called_class();
+                    $uniqueAttr = $rule["attribute"] ?? $attribute;
+                    $tableName = $className::tableName();
+                    $sql = "SELECT * FROM {$tableName} WHERE $uniqueAttr = :attribute";
+                    $statement = Application::$app->db->pdo->prepare($sql);
+                    $statement->bindValue(":attribute", $value);
+                    $statement->execute();
+                    if ($statement->fetchObject()) {
+                        $params = is_array($rule) ? $rule : ["class" => $className, "attribute" => $uniqueAttr];
+                        $this->addError($attribute, self::RULE_UNIQUE, $params);
+                    }
                 }
             }
         }
@@ -98,6 +110,7 @@ abstract class Model implements IModel
             self::RULE_MIN => "The lenght must not be less then {min} charaters",
             self::RULE_MAX => "The lenght must not be more then {max} charaters",
             self::RULE_MATCH => "The field must be the same as {match} field",
+            self::RULE_UNIQUE => "The record with this {attribute} already exists",
             default => "The given rule is invalid"
         };
     }

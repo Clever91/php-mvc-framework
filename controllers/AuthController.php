@@ -16,7 +16,6 @@ class AuthController extends Controller
         $model = new Login();
         if ($request->isPost()) {
             $model->loadData($request->getBody());
-            // Logger::dump($model);
             if ($model->validate()) {
                 return "success";
             }
