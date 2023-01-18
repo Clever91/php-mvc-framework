@@ -33,8 +33,9 @@ class Register extends Model
         ];
     }
 
-    protected function beforeSave(): void
+    protected function beforeSave(): bool
     {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+        return parent::beforeSave();
     }
 }

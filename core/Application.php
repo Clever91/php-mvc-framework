@@ -11,6 +11,7 @@ class Application
     public Database $db;
     public Router $router;
     public Controller $controller;
+    public Session $session;
     public static Application $app;
     public static string $ROOT_DIR;
 
@@ -20,6 +21,7 @@ class Application
         self::$ROOT_DIR = $rootDir;
         $this->router = new Router(new Request(), new Response());
         $this->db = new Database($config["db"]);
+        $this->session = new Session();
     }
 
     public function run(): void

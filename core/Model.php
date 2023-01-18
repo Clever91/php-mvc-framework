@@ -77,29 +77,32 @@ abstract class Model implements IModel
         return empty($this->errors);
     }
 
-    protected function beforeSave(): void
+    protected function beforeSave(): bool
     {
         //It is possibale that the child can use this method
+        return true;
     }
 
     final public function save(): bool
     {
-        $this->beforeSave();
-        $params = [];
-        $values = [];
-        foreach ($this->attributes() as $attribute) {
-            $params[$attribute] = $this->{$attribute};
-            $values[] = ":{$attribute}";
+        if ($this->beforeSave()) {
+            $params = [];
+            $values = [];
+            foreach ($this->attributes() as $attribute) {
+                $params[$attribute] = $this->{$attribute};
+                $values[] = ":{$attribute}";
+            }
+            $tableName = $this->tableName();
+            $values = implode(",", $values);
+            $columns = implode(",", $this->attributes());
+            $sql = "INSERT INTO {$tableName}({$columns}) VALUES({$values})";
+            $statement = $this->pdo->prepare($sql);
+            foreach ($params as $key => $value)
+                $statement->bindValue($key, $value);
+            $statement->execute();
+            return true;
         }
-        $tableName = $this->tableName();
-        $values = implode(",", $values);
-        $columns = implode(",", $this->attributes());
-        $sql = "INSERT INTO {$tableName}({$columns}) VALUES({$values})";
-        $statement = $this->pdo->prepare($sql);
-        foreach ($params as $key => $value)
-            $statement->bindValue($key, $value);
-        $statement->execute();
-        return true;
+        return false;
     }
 
     public function getErrors(): array

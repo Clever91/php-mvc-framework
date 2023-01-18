@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\core\Controller;
+use app\core\Logger;
 use app\core\Request;
 
 class SiteController extends Controller
@@ -10,6 +11,7 @@ class SiteController extends Controller
 
     public function home()
     {
+        // Logger::dump($_SESSION);
         return $this->render("home", [
             "name" => "Welcome home page"
         ]);
