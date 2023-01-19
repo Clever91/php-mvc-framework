@@ -10,3 +10,4 @@ I must learn those subject deaply
 8. pdo beginTransaction
 9. session all function
 10. php call non static method statically
+11. Fatal error: Allowed memory size of 134217728 bytes exhausted shunaqa xatolik haqida o'qib o'rganish

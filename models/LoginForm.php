@@ -2,29 +2,27 @@
 
 namespace app\models;
 
-use app\core\Model;
+use app\core\ModelForm;
 
-class Login extends Model
+class LoginForm extends ModelForm
 {
     public string $username;
     public string $password;
     public bool $remenberMe = true;
 
-    public function tableName(): string
-    {
-        return "users";
-    }
-
-    public function attributes(): array
-    {
-        return ["username", "password", "remenberMe"];
-    }
-
+    /**
+     * @desc if you don't add remenberMe attribute, you must initial it
+     * */ 
     public function rules(): array
     {
         return [
             "username" => [self::RULE_REQUIRED],
             "password" => [self::RULE_REQUIRED],
         ];
+    }
+
+    public function login(): bool
+    {
+        return false;
     }
 }

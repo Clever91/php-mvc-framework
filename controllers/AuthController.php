@@ -3,9 +3,8 @@
 namespace app\controllers;
 
 use app\core\Controller;
-use app\core\Logger;
 use app\core\Request;
-use app\models\Login;
+use app\models\LoginForm;
 
 class AuthController extends Controller
 {
@@ -13,10 +12,10 @@ class AuthController extends Controller
     {
         $this->setLayout("auth");
 
-        $model = new Login();
+        $model = new LoginForm();
         if ($request->isPost()) {
             $model->loadData($request->getBody());
-            if ($model->validate()) {
+            if ($model->validate() && $model->login()) {
                 return "success";
             }
         }

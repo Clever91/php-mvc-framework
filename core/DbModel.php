@@ -7,6 +7,7 @@ use PDO;
 
 abstract class DbModel extends Model implements IDbModel
 {
+    public const RULE_UNIQUE = "unique";
     private PDO $pdo;
     
     public function __construct()
@@ -71,5 +72,17 @@ abstract class DbModel extends Model implements IDbModel
             return true;
         }
         return false;
+    }
+
+    protected function getRuleMessage(string $rule): string|bool
+    {
+        $message = parent::getRuleMessage($rule);
+        if ($message !== false)
+            return $message;
+            
+        return match ($rule) {
+            self::RULE_UNIQUE => "This record with this {attribute} already exists",
+            default => "The given rule is invalid"
+        };
     }
 }

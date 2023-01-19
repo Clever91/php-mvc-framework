@@ -12,7 +12,6 @@ abstract class Model implements IModel
     public const RULE_MIN = "min";
     public const RULE_MAX = "max";
     public const RULE_MATCH = "match";
-    public const RULE_UNIQUE = "unique";
 
     private array $errors = [];
 
@@ -94,7 +93,7 @@ abstract class Model implements IModel
         $this->errors[$attribute][] = $message;
     }
 
-    private function getRuleMessage(string $rule): string
+    protected function getRuleMessage(string $rule): string|bool
     {
         return match ($rule) {
             self::RULE_REQUIRED => "This field is required",
@@ -102,8 +101,7 @@ abstract class Model implements IModel
             self::RULE_MIN => "The lenght must not be less then {min} charaters",
             self::RULE_MAX => "The lenght must not be more then {max} charaters",
             self::RULE_MATCH => "The field must be the same as {match} field",
-            self::RULE_UNIQUE => "The record with this {attribute} already exists",
-            default => "The given rule is invalid"
+            default => false
         };
     }
 }
