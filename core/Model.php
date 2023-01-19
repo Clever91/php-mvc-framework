@@ -3,7 +3,6 @@
 namespace app\core;
 
 use app\core\interface\IModel;
-use PDO;
 
 abstract class Model implements IModel
 {
@@ -15,12 +14,10 @@ abstract class Model implements IModel
     public const RULE_MATCH = "match";
     public const RULE_UNIQUE = "unique";
 
-    private PDO $pdo;
     private array $errors = [];
 
     public function __construct()
     {
-        $this->pdo = Application::$app->db->pdo;
         foreach (array_keys($this->rules()) as $attribute) {
             $this->{$attribute} = "";
         }
@@ -45,64 +42,28 @@ abstract class Model implements IModel
                     $ruleName = $rule[0];
                 }
                 if ($ruleName === self::RULE_REQUIRED && empty($value)) {
-                    $this->addError($attribute, self::RULE_REQUIRED);
+                    $this->addRuleError($attribute, self::RULE_REQUIRED);
                 }
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                    $this->addError($attribute, self::RULE_EMAIL);
+                    $this->addRuleError($attribute, self::RULE_EMAIL);
                 }
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule["min"]) {
-                    $this->addError($attribute, self::RULE_MIN, $rule);
+                    $this->addRuleError($attribute, self::RULE_MIN, $rule);
                 }
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule["max"]) {
-                    $this->addError($attribute, self::RULE_MAX, $rule);
+                    $this->addRuleError($attribute, self::RULE_MAX, $rule);
                 }
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule["match"]}) {
-                    $this->addError($attribute, self::RULE_MATCH, $rule);
-                }
-                if ($ruleName === self::RULE_UNIQUE) {
-                    $className = $rule["class"] ?? get_called_class();
-                    $uniqueAttr = $rule["attribute"] ?? $attribute;
-                    $tableName = $className::tableName();
-                    $sql = "SELECT * FROM {$tableName} WHERE $uniqueAttr = :attribute";
-                    $statement = $this->pdo->prepare($sql);
-                    $statement->bindValue(":attribute", $value);
-                    $statement->execute();
-                    if ($statement->fetchObject()) {
-                        $params = is_array($rule) ? $rule : ["class" => $className, "attribute" => $uniqueAttr];
-                        $this->addError($attribute, self::RULE_UNIQUE, $params);
-                    }
+                    $this->addRuleError($attribute, self::RULE_MATCH, $rule);
                 }
             }
         }
         return empty($this->errors);
     }
 
-    protected function beforeSave(): bool
+    public function addError(string $attribute, string $message)
     {
-        //It is possibale that the child can use this method
-        return true;
-    }
-
-    final public function save(): bool
-    {
-        if ($this->beforeSave()) {
-            $params = [];
-            $values = [];
-            foreach ($this->attributes() as $attribute) {
-                $params[$attribute] = $this->{$attribute};
-                $values[] = ":{$attribute}";
-            }
-            $tableName = $this->tableName();
-            $values = implode(",", $values);
-            $columns = implode(",", $this->attributes());
-            $sql = "INSERT INTO {$tableName}({$columns}) VALUES({$values})";
-            $statement = $this->pdo->prepare($sql);
-            foreach ($params as $key => $value)
-                $statement->bindValue($key, $value);
-            $statement->execute();
-            return true;
-        }
-        return false;
+        $this->errors[$attribute][] = $message;
     }
 
     public function getErrors(): array
@@ -122,9 +83,9 @@ abstract class Model implements IModel
         return "";
     }
 
-    private function addError(string $attribute, string $rule, array $params = []): void
+    protected function addRuleError(string $attribute, string $rule, array $params = []): void
     {
-        $message = $this->getErrorMessage($rule);
+        $message = $this->getRuleMessage($rule);
         foreach ($params as $key => $label) {
             if (is_string($key)) {
                 $message = str_replace("{{$key}}", $label, $message);
@@ -133,7 +94,7 @@ abstract class Model implements IModel
         $this->errors[$attribute][] = $message;
     }
 
-    private function getErrorMessage(string $rule): string
+    private function getRuleMessage(string $rule): string
     {
         return match ($rule) {
             self::RULE_REQUIRED => "This field is required",

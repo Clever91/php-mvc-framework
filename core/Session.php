@@ -7,17 +7,13 @@ use app\core\interface\ISession;
 class Session implements ISession
 {
     private const KEY_FLASH = "flash_messages";
+    private const KEY_VARIABLE = "variable";
 
     public function __construct()
     {
         session_start();
-        if (empty($_SESSION[self::KEY_FLASH])) {
-            $_SESSION[self::KEY_FLASH] = [];
-        }
-        foreach ($_SESSION[self::KEY_FLASH] as $key => &$flash) {
-            if (isset($flash["removeable"]))
-                $flash["removeable"] = true;
-        }
+        $this->initialDefault();
+        $this->makeRemoveable();
     }
 
     public function hasFlash(string $key): bool
@@ -36,11 +32,39 @@ class Session implements ISession
         $_SESSION[self::KEY_FLASH][$key]["value"] = $value;
     }
 
+    public function set(string $key, string|int|array $value): void
+    {
+        $_SESSION[self::KEY_VARIABLE][$key] = $value;
+    }
+
+    public function get(string $key): mixed
+    {
+        return $_SESSION[self::KEY_VARIABLE][$key] ?? false;
+    }
+
+    private function makeRemoveable()
+    {
+        foreach ($_SESSION[self::KEY_FLASH] as &$flash) {
+            if (isset($flash["removeable"]))
+                $flash["removeable"] = true;
+        }
+    }
+
+    private function initialDefault()
+    {
+        if (empty($_SESSION[self::KEY_FLASH])) {
+            $_SESSION[self::KEY_FLASH] = [];
+        }
+        if (empty($_SESSION[self::KEY_VARIABLE])) {
+            $_SESSION[self::KEY_VARIABLE] = [];
+        }
+    }
+
     public function __destruct()
     {
-        foreach ($_SESSION[self::KEY_FLASH] as $flash) {
+        foreach ($_SESSION[self::KEY_FLASH] as $key => $flash) {
             if (isset($flash["removeable"]) && $flash["removeable"])
-                unset($_SESSION[self::KEY_FLASH]);
+                unset($_SESSION[self::KEY_FLASH][$key]);
         }
     }
 }

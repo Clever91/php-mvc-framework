@@ -2,9 +2,9 @@
 
 namespace app\models;
 
-use app\core\Model;
+use app\core\DbModel;
 
-class Register extends Model
+class User extends DbModel
 {
     public string $fullname;
     public string $email;

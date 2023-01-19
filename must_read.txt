@@ -9,3 +9,4 @@ I must learn those subject deaply
 7. scandir, array_filter, array_diff, pathinfo, 
 8. pdo beginTransaction
 9. session all function
+10. php call non static method statically
