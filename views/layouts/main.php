@@ -34,7 +34,7 @@ use app\core\Application; ?>
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav mb-2 mb-lg-0">
                     <?php if (Application::$app->isGuest()) : ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/signIn">Sign In</a>
