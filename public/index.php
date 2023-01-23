@@ -34,5 +34,6 @@ $app->router->get("/welcome", function () {
 });
 $app->router->match(["get", "post"], "/signUp", [RegisterController::class, "signUp"]);
 $app->router->match(["get", "post"], "/signIn", [AuthController::class, "signIn"]);
+$app->router->match(["get", "post"], "/logout", [AuthController::class, "logout"]);
 // run 
 $app->run();

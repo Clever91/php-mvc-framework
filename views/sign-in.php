@@ -21,7 +21,7 @@ $form = Form::begin('', 'post'); ?>
 </div>
 
 <div class="form-check">
-    <?= $form->checkboxField($model, "remenberMe", "Check me out", [
+    <?= $form->checkboxField($model, "rememberMe", "Check me out", [
         "labelClass" => "form-check-label",
         "inputClass" => "form-check-input"
     ]); ?>

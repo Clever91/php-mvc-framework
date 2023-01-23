@@ -11,3 +11,5 @@ I must learn those subject deaply
 9. session all function
 10. php call non static method statically
 11. Fatal error: Allowed memory size of 134217728 bytes exhausted shunaqa xatolik haqida o'qib o'rganish
+12. static::class, self::, $this
+13. // Logger::dump([__CLASS__, self::class, static::class, get_class(), get_called_class()]);

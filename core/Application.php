@@ -5,6 +5,7 @@ namespace app\core;
 use app\core\Router;
 use app\core\Request;
 use app\core\Response;
+use app\models\User;
 
 class Application
 {
@@ -12,6 +13,7 @@ class Application
     public Router $router;
     public Controller $controller;
     public Session $session;
+    public ?User $user;
     public static Application $app;
     public static string $ROOT_DIR;
 
@@ -22,10 +24,20 @@ class Application
         $this->router = new Router(new Request(), new Response());
         $this->db = new Database($config["db"]);
         $this->session = new Session();
+        if ($this->session->has("userId")) {
+            $this->user = User::find("id", $this->session->get("userId"));
+        } else {
+            $this->user = null;
+        }
     }
 
     public function run(): void
     {
         echo $this->router->resolve();
+    }
+
+    public function isGuest(): bool
+    {
+        return is_null($this->user);
     }
 }

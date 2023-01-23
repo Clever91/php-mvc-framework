@@ -2,17 +2,25 @@
 
 namespace app\models;
 
-use app\core\ModelForm;
+use app\core\Application;
+use app\core\DbModel;
 
-class LoginForm extends ModelForm
+class LoginForm extends DbModel
 {
     public string $username;
     public string $password;
-    public bool $remenberMe = true;
+    public bool $rememberMe = true;
 
-    /**
-     * @desc if you don't add remenberMe attribute, you must initial it
-     * */ 
+    public function tableName(): string
+    {
+        return "users";
+    }
+
+    public function attributes(): array
+    {
+        return ["username", "password"];
+    }
+
     public function rules(): array
     {
         return [
@@ -23,6 +31,11 @@ class LoginForm extends ModelForm
 
     public function login(): bool
     {
+        $model = User::find('username', $this->username);
+        if (password_verify($model->password, password_hash($this->password, PASSWORD_BCRYPT))) {
+            Application::$app->session->set("userId", $model->{$model->primeryKey()});
+            return true;
+        }
         return false;
     }
 }

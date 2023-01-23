@@ -16,6 +16,11 @@ class Database
         $this->path = Application::$ROOT_DIR . "/migrations";
     }
 
+    public function prepare(string $sql)
+    {
+        return $this->pdo->prepare($sql);
+    }
+
     public function applyMigrations(): void
     {
         $this->createMigrationsTable();

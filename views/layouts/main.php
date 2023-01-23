@@ -1,3 +1,7 @@
+<?php
+
+use app\core\Application; ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -31,12 +35,18 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signIn">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signUp">Sign Up</a>
-                    </li>
+                    <?php if (Application::$app->isGuest()) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signIn">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signUp">Sign Up</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout"><?= Application::$app->user->fullname ?>(Logout)</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

@@ -38,4 +38,14 @@ class User extends DbModel
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
         return parent::beforeSave();
     }
+
+    public function primeryKey(): string
+    {
+        return "id";
+    }
+
+    public static function find(string $attribute, string $value)
+    {
+        return (new self)->findOne($attribute, $value);
+    }
 }

@@ -32,6 +32,11 @@ class Session implements ISession
         $_SESSION[self::KEY_FLASH][$key]["value"] = $value;
     }
 
+    public function has(string $key): bool
+    {
+        return isset($_SESSION[self::KEY_VARIABLE][$key]) ? true : false;
+    }
+
     public function set(string $key, string|int|array $value): void
     {
         $_SESSION[self::KEY_VARIABLE][$key] = $value;
@@ -40,6 +45,11 @@ class Session implements ISession
     public function get(string $key): mixed
     {
         return $_SESSION[self::KEY_VARIABLE][$key] ?? false;
+    }
+
+    public function remove(string $key): void
+    {
+        unset($_SESSION[self::KEY_VARIABLE][$key]);
     }
 
     private function makeRemoveable()

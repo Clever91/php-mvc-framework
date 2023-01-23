@@ -4,6 +4,9 @@ namespace app\core;
 
 use app\core\interface\IModel;
 
+/**
+ * @desc This class is responsible for validation 
+ */
 abstract class Model implements IModel
 {
     public const RULE_NONE = "none";
@@ -18,7 +21,8 @@ abstract class Model implements IModel
     public function __construct()
     {
         foreach (array_keys($this->rules()) as $attribute) {
-            $this->{$attribute} = "";
+            if (empty($this->{$attribute}))
+                $this->{$attribute} = "";
         }
     }
 

@@ -3,19 +3,21 @@
 namespace app\core;
 
 use app\core\interface\IDbModel;
+use app\models\User;
 use PDO;
 
 abstract class DbModel extends Model implements IDbModel
 {
     public const RULE_UNIQUE = "unique";
+
     private PDO $pdo;
-    
+
     public function __construct()
     {
         $this->pdo = Application::$app->db->pdo;
         parent::__construct();
     }
-    
+
     //It is possibale that the child can overrite this method
     protected function beforeSave(): bool
     {
@@ -79,10 +81,20 @@ abstract class DbModel extends Model implements IDbModel
         $message = parent::getRuleMessage($rule);
         if ($message !== false)
             return $message;
-            
+
         return match ($rule) {
             self::RULE_UNIQUE => "This record with this {attribute} already exists",
             default => "The given rule is invalid"
         };
+    }
+
+    public function findOne(string $attribute, string $value)
+    {
+        $tableName = $this->tableName();
+        $sql = "SELECT * FROM {$tableName} WHERE {$attribute} = :{$attribute}";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(":{$attribute}", $value);
+        $statement->execute();
+        return $statement->fetchObject(static::class);
     }
 }

@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\Request;
 use app\models\LoginForm;
+use app\core\Application;
 
 class AuthController extends Controller
 {
@@ -16,12 +17,18 @@ class AuthController extends Controller
         if ($request->isPost()) {
             $model->loadData($request->getBody());
             if ($model->validate() && $model->login()) {
-                return "success";
+                $this->redirect("/");
             }
         }
 
         return $this->render("sign-in", [
             "model" => $model
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        Application::$app->session->remove("userId");
+        $this->redirect('/');
     }
 }
