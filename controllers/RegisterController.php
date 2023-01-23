@@ -18,7 +18,7 @@ class RegisterController extends Controller
             $model->loadData($request->getBody());
             if ($model->validate() && $model->save()) {
                 Application::$app->session->setFlash("success", "User has saved successfully");
-                return $this->redirect("/");
+                $this->redirect("/");
             }
         }
 

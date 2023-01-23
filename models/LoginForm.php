@@ -3,23 +3,13 @@
 namespace app\models;
 
 use app\core\Application;
-use app\core\DbModel;
+use app\core\ModelForm;
 
-class LoginForm extends DbModel
+class LoginForm extends ModelForm
 {
     public string $username;
     public string $password;
     public bool $rememberMe = true;
-
-    public function tableName(): string
-    {
-        return "users";
-    }
-
-    public function attributes(): array
-    {
-        return ["username", "password"];
-    }
 
     public function rules(): array
     {
@@ -33,9 +23,10 @@ class LoginForm extends DbModel
     {
         $model = User::find('username', $this->username);
         if ($model->validPassword($this->password)) {
-            $key = Application::$app->config["identity"]["key"];
-            Application::$app->session->set($key, $model->{$model->primaryKey()});
-            return true;
+            return Application::$app->login($model);
+        } else {
+            $this->addError("username", "Your username or password is incorrect");
+            $this->addError("password", "Your username or password is incorrect");
         }
         return false;
     }

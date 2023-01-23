@@ -25,7 +25,7 @@ class Application
         $this->db = new Database($config["db"]);
         $this->session = new Session();
         $this->config = $config;
-        if ($this->session->has($config["identity"]["key"])) {
+        if ($this->session->has("userId")) {
             $this->user = $config["identity"]["class"]::find("id", $this->session->get("userId"));
         } else {
             $this->user = null;
@@ -40,5 +40,12 @@ class Application
     public function isGuest(): bool
     {
         return is_null($this->user);
+    }
+
+    public function login(UserIdentity $user)
+    {
+        $this->user = $user;
+        $this->session->set("userId", $user->{$user->primaryKey()});
+        return true;
     }
 }
