@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
+use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
 use app\models\LoginForm;
-use app\core\Application;
 
 class AuthController extends Controller
 {

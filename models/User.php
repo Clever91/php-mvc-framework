@@ -2,9 +2,9 @@
 
 namespace app\models;
 
-use app\core\DbModel;
+use app\core\UserIdentity;
 
-class User extends DbModel
+class User extends UserIdentity
 {
     public string $fullname;
     public string $email;
@@ -33,19 +33,13 @@ class User extends DbModel
         ];
     }
 
-    protected function beforeSave(): bool
+    public function encriptPassword(): void
     {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
-        return parent::beforeSave();
     }
 
-    public function primeryKey(): string
+    public function validPassword(string $password): bool
     {
-        return "id";
-    }
-
-    public static function find(string $attribute, string $value)
-    {
-        return (new self)->findOne($attribute, $value);
+        return password_verify($this->password, password_hash($password, PASSWORD_BCRYPT));
     }
 }

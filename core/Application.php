@@ -5,7 +5,6 @@ namespace app\core;
 use app\core\Router;
 use app\core\Request;
 use app\core\Response;
-use app\models\User;
 
 class Application
 {
@@ -13,9 +12,10 @@ class Application
     public Router $router;
     public Controller $controller;
     public Session $session;
-    public ?User $user;
+    public ?UserIdentity $user;
     public static Application $app;
     public static string $ROOT_DIR;
+    public array $config;
 
     public function __construct(string $rootDir, array $config)
     {
@@ -24,8 +24,9 @@ class Application
         $this->router = new Router(new Request(), new Response());
         $this->db = new Database($config["db"]);
         $this->session = new Session();
-        if ($this->session->has("userId")) {
-            $this->user = User::find("id", $this->session->get("userId"));
+        $this->config = $config;
+        if ($this->session->has($config["identity"]["key"])) {
+            $this->user = $config["identity"]["class"]::find("id", $this->session->get("userId"));
         } else {
             $this->user = null;
         }

@@ -32,8 +32,9 @@ class LoginForm extends DbModel
     public function login(): bool
     {
         $model = User::find('username', $this->username);
-        if (password_verify($model->password, password_hash($this->password, PASSWORD_BCRYPT))) {
-            Application::$app->session->set("userId", $model->{$model->primeryKey()});
+        if ($model->validPassword($this->password)) {
+            $key = Application::$app->config["identity"]["key"];
+            Application::$app->session->set($key, $model->{$model->primaryKey()});
             return true;
         }
         return false;

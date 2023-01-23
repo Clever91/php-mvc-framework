@@ -10,6 +10,7 @@ use app\controllers\AuthController;
 use app\controllers\RegisterController;
 use app\controllers\SiteController;
 use app\core\Application;
+use app\models\User;
 
 // enviroment
 $dirname = dirname(__DIR__);
@@ -18,6 +19,10 @@ $dotenv->load();
 
 // load application
 $app = new Application($dirname, [
+    "identity" => [
+        "class" => User::class,
+        "key" => "userId"
+    ],
     "db" => [
         "dsn" => $_ENV["DB_DSN"],
         "user" => $_ENV["DB_USER"],
