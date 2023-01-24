@@ -4,9 +4,17 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\core\Request;
+use app\core\middleware\AuthMiddleware;
 
 class SiteController extends Controller
 {
+    public function __construct()
+    {
+        $this->registerMiddlewares([
+            new AuthMiddleware(["profile"])
+        ]);
+    }
+
     public function home()
     {
         return $this->render("home", [
@@ -23,11 +31,13 @@ class SiteController extends Controller
     {
         $postData = $request->getBody();
         if ($request->isPost()) {
-            echo "<pre>";
-            var_dump($postData);
-            echo "</pre>";
             return "Handling submitted data";
         }
         return $this->render("contact");
+    }
+
+    public function profile(Request $request)
+    {
+        return $this->render("profile");
     }
 }

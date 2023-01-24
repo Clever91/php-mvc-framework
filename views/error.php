@@ -1,1 +1,1 @@
-<h3>Error <b>404</b></h3>
+<h3><b><?= $exception->getCode() ?></b> - <?= $exception->getMessage() ?></h3>

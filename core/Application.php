@@ -35,7 +35,12 @@ class Application
 
     public function run(): void
     {
-        echo $this->router->resolve();
+        try {
+            echo $this->router->resolve();
+        } catch (\Throwable $th) {
+            $this->router->getResponse()->setStatusCode($th->getCode());
+            echo $this->router->renderView("error", ["exception" => $th]);
+        }
     }
 
     public function isGuest(): bool
