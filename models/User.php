@@ -42,4 +42,9 @@ class User extends UserIdentity
     {
         return password_verify($this->password, password_hash($password, PASSWORD_BCRYPT));
     }
+
+    public function displayName(): string
+    {
+        return $this->fullname;
+    }
 }

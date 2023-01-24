@@ -16,6 +16,7 @@ class Application
     public static Application $app;
     public static string $ROOT_DIR;
     public array $config;
+    public string $layout = "main";
 
     public function __construct(string $rootDir, array $config)
     {

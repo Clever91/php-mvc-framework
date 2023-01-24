@@ -7,7 +7,12 @@ use app\core\interface\IController;
 
 class Controller implements IController
 {
-    public string $layout = "main";
+    public string $layout;
+
+    public function __construct()
+    {
+        $this->layout = Application::$app->layout;
+    }
 
     public function setLayout(string $layout): void
     {

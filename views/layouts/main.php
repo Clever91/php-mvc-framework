@@ -44,7 +44,7 @@ use app\core\Application; ?>
                         </li>
                     <?php else : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout"><?= Application::$app->user->fullname ?>(Logout)</a>
+                            <a class="nav-link" href="/logout"><?= Application::$app->user->displayName() ?>(Logout)</a>
                         </li>
                     <?php endif; ?>
                 </ul>
