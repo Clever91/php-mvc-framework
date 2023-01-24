@@ -1,6 +1,6 @@
 I must learn those subject deaply
 
-1. ob_start
+1. ob_start with require_once
 2. call_user_func and call_user_func_array
 3. filter_input($method_consts[$method], $value, FILTER_SANITIZE_SPECIAL_CHARS)
 4. property_exists, filter_var, sprintf

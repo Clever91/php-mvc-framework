@@ -7,7 +7,7 @@ use app\core\interface\ISession;
 class Session implements ISession
 {
     private const KEY_FLASH = "flash_messages";
-    private const KEY_VARIABLE = "variable";
+    private const KEY_VARIABLE = "variables";
 
     public function __construct()
     {

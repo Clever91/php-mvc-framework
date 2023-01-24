@@ -3,7 +3,6 @@
 namespace app\core;
 
 use app\core\interface\IDbModel;
-use app\models\User;
 use PDO;
 
 abstract class DbModel extends Model implements IDbModel

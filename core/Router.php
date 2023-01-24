@@ -58,7 +58,7 @@ class Router implements IRouter
             Application::$app->controller = new $handler[0];
             $handler[0] = Application::$app->controller;
         }
-        return call_user_func($handler, $this->request);
+        return call_user_func($handler, $this->request, $this->response);
     }
 
     public function renderView(string $view, array $params = []): mixed
