@@ -21,7 +21,6 @@ $dotenv->load();
 $app = new Application($dirname, [
     "identity" => [
         "class" => User::class,
-        "key" => "userId"
     ],
     "db" => [
         "dsn" => $_ENV["DB_DSN"],

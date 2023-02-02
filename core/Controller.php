@@ -13,7 +13,8 @@ class Controller implements IController
 
     public function __construct()
     {
-        $this->layout = Application::$app->layout;
+        if (empty($this->layout))
+            $this->layout = Application::$app->layout;
     }
 
     public function setLayout(string $layout): void
