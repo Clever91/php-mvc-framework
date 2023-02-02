@@ -31,8 +31,7 @@ $app = new Application($dirname, [
 // routes
 $app->router->get("/", [SiteController::class, "home"]);
 $app->router->get("/about", "about");
-$app->router->get("/contact", [SiteController::class, "contact"]);
-$app->router->post("/contact", [SiteController::class, "handleContact"]);
+$app->router->match(["get", "post"], "/contact", [SiteController::class, "contact"]);
 $app->router->get("/welcome", function () {
     return Application::$app->view->renderView("welcome", ["name" => "Sherzod"]);
 });

@@ -4,7 +4,7 @@
 
 use app\core\form\Form;
 
-$this->title = "SIgn Up";
+$this->title = "Sign Up";
 
 $form = Form::begin('', 'post'); ?>
 

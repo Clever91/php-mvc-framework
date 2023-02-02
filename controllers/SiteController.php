@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
 use app\core\middleware\AuthMiddleware;
+use app\core\Response;
+use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -22,18 +25,19 @@ class SiteController extends Controller
         ]);
     }
 
-    public function contact()
+    public function contact(Request $request, Response $response)
     {
-        return $this->render("contact");
-    }
-
-    public function handleContact(Request $request)
-    {
-        $postData = $request->getBody();
+        $model = new ContactForm();
         if ($request->isPost()) {
-            return "Handling submitted data";
+            $model->loadData($request->getBody());
+            if ($model->validate() && $model->send()) {
+                Application::$app->session->setFlash("success", "Your message has send successfully");
+                $response->redirect('/');
+            }
         }
-        return $this->render("contact");
+        return $this->render("contact", [
+            'model' => $model
+        ]);
     }
 
     public function profile(Request $request)

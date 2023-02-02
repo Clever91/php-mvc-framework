@@ -42,6 +42,11 @@ class Form
         return new Button($name, Button::TYPE_SUBMIT, $label);
     }
 
+    public function textareaField(Model $model, string $attribute, string $label)
+    {
+        return new TextareaField($model, $attribute, $label);
+    }
+
     public static function end(): void
     {
         echo "</form>";

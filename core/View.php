@@ -7,6 +7,12 @@ class View
     public string $title;
     public string $description;
 
+    public function __construct()
+    {
+        $this->title = '';
+        $this->description = '';
+    }
+
     public function renderView(string $view, array $params = []): mixed
     {
         $viewContent = $this->getView($view, $params);
