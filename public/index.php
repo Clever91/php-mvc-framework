@@ -34,7 +34,7 @@ $app->router->get("/about", "about");
 $app->router->get("/contact", [SiteController::class, "contact"]);
 $app->router->post("/contact", [SiteController::class, "handleContact"]);
 $app->router->get("/welcome", function () {
-    return Application::$app->router->renderView("welcome", ["name" => "Sherzod"]);
+    return Application::$app->view->renderView("welcome", ["name" => "Sherzod"]);
 });
 $app->router->match(["get", "post"], "/signUp", [RegisterController::class, "signUp"]);
 $app->router->match(["get", "post"], "/signIn", [AuthController::class, "signIn"]);

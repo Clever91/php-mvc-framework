@@ -4,6 +4,8 @@
 
 use app\core\form\Form;
 
+$this->title = "Sing In";
+
 $form = Form::begin('', 'post'); ?>
 
 <div class="mb-3">

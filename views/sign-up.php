@@ -4,6 +4,8 @@
 
 use app\core\form\Form;
 
+$this->title = "SIgn Up";
+
 $form = Form::begin('', 'post'); ?>
 
 <div class="form-group">

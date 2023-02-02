@@ -12,6 +12,7 @@ class Application
     public Router $router;
     public Controller $controller;
     public Session $session;
+    public View $view;
     public ?UserIdentity $user;
     public static Application $app;
     public static string $ROOT_DIR;
@@ -25,6 +26,7 @@ class Application
         $this->router = new Router(new Request(), new Response());
         $this->db = new Database($config["db"]);
         $this->session = new Session();
+        $this->view = new View();
         $this->config = $config;
         if ($this->session->has("userId")) {
             $this->user = $config["identity"]["class"]::find("id", $this->session->get("userId"));
@@ -39,7 +41,7 @@ class Application
             echo $this->router->resolve();
         } catch (\Throwable $th) {
             $this->router->getResponse()->setStatusCode($th->getCode());
-            echo $this->router->renderView("error", ["exception" => $th]);
+            echo $this->view->renderView("error", ["exception" => $th]);
         }
     }
 
