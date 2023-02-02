@@ -7,29 +7,25 @@ use app\core\form\Form;
 $form = Form::begin('', 'post'); ?>
 
 <div class="mb-3">
-    <?= $form->textField($model, "username", "Username", [
-        "labelClass" => "form-label",
-        "inputClass" => "form-control"
-    ]); ?>
+    <div class="form-group">
+        <?= $form->textField($model, "username", "Username"); ?>
+    </div>
 </div>
 
 <div class="mb-3">
-    <?= $form->passwordField($model, "password", "Password", [
-        "labelClass" => "form-label",
-        "inputClass" => "form-control"
-    ]); ?>
+    <div class="form-group">
+        <?= $form->passwordField($model, "password", "Password"); ?>
+    </div>
 </div>
 
 <div class="form-check">
-    <?= $form->checkboxField($model, "rememberMe", "Check me out", [
-        "labelClass" => "form-check-label",
-        "inputClass" => "form-check-input"
-    ]); ?>
+    <?= $form->checkboxField($model, "rememberMe", "Check me out"); ?>
 </div>
+
 <div class="mb-3">
-    <?= $form->submitField(name: "submit", label: "Sign In", option: [
-        "class" => "form-control btn btn-primary"
-    ]) ?>
+    <div class="form-group">
+        <?= $form->submitField(name: "submit", label: "Sign In") ?>
+    </div>
 </div>
 <?php Form::end(); ?>
 

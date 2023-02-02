@@ -8,23 +8,20 @@ class Button
     public const TYPE_SUBMIT = 'submit';
 
     protected string $name;
-    protected string $type;
     protected string $label;
-    protected array $option = [];
+    protected string $type;
 
-    public function __construct(string $name, string $type, string $label, array $option = [])
+    public function __construct(string $name, string $type, string $label)
     {
         $this->name = $name;
         $this->type = $type;
         $this->label = $label;
-        $this->option = $option;
     }
 
     public function __toString(): string
     {
         return sprintf(
-            '<button class="%s" name="%s" type="%s">%s</button>',
-            $this->option["class"] ?? "",
+            '<button class="form-control btn btn-primary" name="%s" type="%s">%s</button>',
             $this->name,
             $this->type,
             $this->label

@@ -12,34 +12,34 @@ class Form
         return new Form();
     }
 
-    public function textField(Model $model, string $attribute, string $label = null, array $option = [])
+    public function textField(Model $model, string $attribute, string $label = null)
     {
-        return new Field($model, $attribute, Field::TYPE_TEXT, $label, $option);
+        return new TextField($model, $attribute, $label);
     }
 
-    public function emailField(Model $model, string $attribute, string $label = null, array $option = [])
+    public function emailField(Model $model, string $attribute, string $label = null)
     {
-        return new Field($model, $attribute, Field::TYPE_EMAIL, $label, $option);
+        return new EmailField($model, $attribute, $label);
     }
 
-    public function passwordField(Model $model, string $attribute, string $label = null, array $option = [])
+    public function passwordField(Model $model, string $attribute, string $label = null)
     {
-        return new Field($model, $attribute, Field::TYPE_PASSWORD, $label, $option);
+        return new PasswordField($model, $attribute, $label);
     }
 
-    public function checkboxField(Model $model, string $attribute, string $label = null, array $option = [])
+    public function checkboxField(Model $model, string $attribute, string $label = null)
     {
-        return new Field($model, $attribute, Field::TYPE_CHECKBOX, $label, $option);
+        return new CheckboxField($model, $attribute, $label);
     }
 
-    public function buttonField(string $name, string $label = null, array $option = [])
+    public function buttonField(string $attribute, string $label = null)
     {
-        return new Button($name, Button::TYPE_BUTTON, $label, $option);
+        return new Button($attribute, Button::TYPE_BUTTON, $label);
     }
 
-    public function submitField(string $name, string $label = null, array $option = [])
+    public function submitField(string $name, string $label = null)
     {
-        return new Button($name, Button::TYPE_SUBMIT, $label, $option);
+        return new Button($name, Button::TYPE_SUBMIT, $label);
     }
 
     public static function end(): void
