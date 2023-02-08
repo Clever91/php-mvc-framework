@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22516f215dec0b98a86510135c427657",
+    "content-hash": "9a2b106f33ebdf6e5951cc8f350e1f5b",
     "packages": [
         {
             "name": "cleveruz/php-mvc-core",
-            "version": "v1.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Clever91/cleveruz-php-mvc-core.git",
@@ -20,6 +20,7 @@
                 "reference": "599af351030ef22abcd93289a511ca2be7d9cd27",
                 "shasum": ""
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -512,7 +513,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "cleveruz/php-mvc-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

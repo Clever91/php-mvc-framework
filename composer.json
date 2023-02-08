@@ -10,7 +10,7 @@
     ],
     "require": {
         "vlucas/phpdotenv": "^5.5",
-        "cleveruz/php-mvc-core": "^v1.0.3"
+        "cleveruz/php-mvc-core": "dev-master"
     },
     "autoload": {
         "psr-4": {
