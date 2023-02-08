@@ -15,4 +15,9 @@ class Response implements IResponse
     {
         header("Location: {$url}");
     }
+
+    public function render(string $view, array $params): string
+    {
+        return Application::$app->view->renderView($view, $params);
+    }
 }

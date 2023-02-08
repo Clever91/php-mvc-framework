@@ -10,6 +10,9 @@ use app\controllers\AuthController;
 use app\controllers\RegisterController;
 use app\controllers\SiteController;
 use app\core\Application;
+use app\core\Logger;
+use app\core\Request;
+use app\core\Response;
 use app\models\User;
 
 // enviroment
@@ -32,8 +35,8 @@ $app = new Application($dirname, [
 $app->router->get("/", [SiteController::class, "home"]);
 $app->router->get("/about", "about");
 $app->router->match(["get", "post"], "/contact", [SiteController::class, "contact"]);
-$app->router->get("/welcome", function () {
-    return Application::$app->view->renderView("welcome", ["name" => "Sherzod"]);
+$app->router->get("/welcome", function (Request $request, Response $response) {
+    return $response->render("welcome", ["name" => "Sherzod"]);
 });
 $app->router->match(["get", "post"], "/signUp", [RegisterController::class, "signUp"]);
 $app->router->match(["get", "post"], "/signIn", [AuthController::class, "signIn"]);
