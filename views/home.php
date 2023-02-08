@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Application;
+use cleveruz\phpmvc\Application;
 
 if (Application::$app->session->hasFlash("success")) { ?>
     <div class="alert alert-success">

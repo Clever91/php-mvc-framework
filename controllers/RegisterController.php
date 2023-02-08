@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\core\Application;
-use app\core\Controller;
-use app\core\Request;
+use cleveruz\phpmvc\Application;
+use cleveruz\phpmvc\Controller;
+use cleveruz\phpmvc\Request;
 use app\models\User;
 
 class RegisterController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Migration;
+use cleveruz\phpmvc\Migration;
 
 class m0001_initial extends Migration
 {

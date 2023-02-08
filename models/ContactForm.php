@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\core\ModelForm;
+use cleveruz\phpmvc\ModelForm;
 
 class ContactForm extends ModelForm
 {

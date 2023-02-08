@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Migration;
+use cleveruz\phpmvc\Migration;
 
 class m0002_add_password extends Migration
 {

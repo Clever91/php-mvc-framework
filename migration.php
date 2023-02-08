@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 // autoload
 require_once __DIR__ . "/vendor/autoload.php";
 
-use app\core\Application;
+use cleveruz\phpmvc\Application;
 
 // enviroment
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

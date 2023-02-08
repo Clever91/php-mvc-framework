@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Application; ?>
+use cleveruz\phpmvc\Application; ?>
 
 <!doctype html>
 <html lang="en">

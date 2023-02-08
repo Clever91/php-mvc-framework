@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-use app\core\Application;
-use app\core\Controller;
-use app\core\Request;
-use app\core\middleware\AuthMiddleware;
-use app\core\Response;
+use cleveruz\phpmvc\Application;
+use cleveruz\phpmvc\Controller;
+use cleveruz\phpmvc\Request;
+use cleveruz\phpmvc\middleware\AuthMiddleware;
+use cleveruz\phpmvc\Response;
 use app\models\ContactForm;
 
 class SiteController extends Controller

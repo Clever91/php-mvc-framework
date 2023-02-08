@@ -4,8 +4,41 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09f46d445dc90886e7cde4fc219b67b4",
+    "content-hash": "22516f215dec0b98a86510135c427657",
     "packages": [
+        {
+            "name": "cleveruz/php-mvc-core",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Clever91/cleveruz-php-mvc-core.git",
+                "reference": "599af351030ef22abcd93289a511ca2be7d9cd27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Clever91/cleveruz-php-mvc-core/zipball/599af351030ef22abcd93289a511ca2be7d9cd27",
+                "reference": "599af351030ef22abcd93289a511ca2be7d9cd27",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "cleveruz\\phpmvc\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Shezod Usmonov",
+                    "email": "sherzod.usmon.91@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/Clever91/cleveruz-php-mvc-core/issues",
+                "source": "https://github.com/Clever91/cleveruz-php-mvc-core/tree/v1.0.3"
+            },
+            "time": "2023-02-08T02:32:46+00:00"
+        },
         {
             "name": "graham-campbell/result-type",
             "version": "v1.1.0",

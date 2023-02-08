@@ -2,7 +2,7 @@
 
 <?php
 
-use app\core\form\Form;
+use cleveruz\phpmvc\form\Form;
 
 $this->title = "Sing In";
 

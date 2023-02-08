@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\core\UserIdentity;
+use cleveruz\phpmvc\UserIdentity;
 
 class User extends UserIdentity
 {

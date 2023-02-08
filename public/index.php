@@ -9,10 +9,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use app\controllers\AuthController;
 use app\controllers\RegisterController;
 use app\controllers\SiteController;
-use app\core\Application;
-use app\core\Logger;
-use app\core\Request;
-use app\core\Response;
+use cleveruz\phpmvc\Application;
+use cleveruz\phpmvc\Request;
+use cleveruz\phpmvc\Response;
 use app\models\User;
 
 // enviroment

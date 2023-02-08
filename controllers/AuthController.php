@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use app\core\Application;
-use app\core\Controller;
-use app\core\Request;
-use app\core\Response;
+use cleveruz\phpmvc\Application;
+use cleveruz\phpmvc\Controller;
+use cleveruz\phpmvc\Request;
+use cleveruz\phpmvc\Response;
 use app\models\LoginForm;
 
 class AuthController extends Controller

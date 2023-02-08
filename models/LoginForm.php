@@ -2,8 +2,8 @@
 
 namespace app\models;
 
-use app\core\Application;
-use app\core\ModelForm;
+use cleveruz\phpmvc\Application;
+use cleveruz\phpmvc\ModelForm;
 
 class LoginForm extends ModelForm
 {

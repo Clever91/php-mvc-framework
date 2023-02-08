@@ -1,7 +1,7 @@
 <h1>Contact</h1>
 <?php
 
-use app\core\form\Form;
+use cleveruz\phpmvc\form\Form;
 
 $this->title = "Contact";
 
