@@ -1,0 +1,22 @@
+services:
+  app:
+    build: ./docker
+    image: cleveruz/php-mvc
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+  db:
+    image: mysql:8
+    ports:
+      - 3307:3306
+    volumes:
+      - php-mvc-data:/var/lib/mysql
+      - ./docker/mysql-config.cnf:/etc/mysql/conf.d/config.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: php_mvc
+      MYSQL_USER: php_mvc
+      MYSQL_PASSWORD: php_mvc
+volumes:
+  php-mvc-data:
