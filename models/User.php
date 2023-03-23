@@ -40,7 +40,8 @@ class User extends UserIdentity
 
     public function validPassword(string $password): bool
     {
-        return password_verify($this->password, password_hash($password, PASSWORD_BCRYPT));
+        return password_verify($password, $this->password);
+        // return password_verify($this->password, password_hash($password, PASSWORD_BCRYPT));
     }
 
     public function displayName(): string
