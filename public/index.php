@@ -32,14 +32,14 @@ $app = new Application($dirname, [
 ]);
 // routes
 $app->router->get("/", [SiteController::class, "home"]);
-$app->router->get("/about", "about");
-$app->router->match(["get", "post"], "/contact", [SiteController::class, "contact"]);
-$app->router->get("/welcome", function (Request $request, Response $response) {
+$app->router->get("/index.php/about", "about");
+$app->router->match(["get", "post"], "/index.php/contact", [SiteController::class, "contact"]);
+$app->router->get("/index.php/welcome", function (Request $request, Response $response) {
     return $response->render("welcome", ["name" => "Sherzod"]);
 });
-$app->router->match(["get", "post"], "/signUp", [RegisterController::class, "signUp"]);
-$app->router->match(["get", "post"], "/signIn", [AuthController::class, "signIn"]);
-$app->router->match(["get", "post"], "/logout", [AuthController::class, "logout"]);
-$app->router->get("/profile", [SiteController::class, "profile"]);
+$app->router->match(["get", "post"], "/index.php/signUp", [RegisterController::class, "signUp"]);
+$app->router->match(["get", "post"], "/index.php/signIn", [AuthController::class, "signIn"]);
+$app->router->match(["get", "post"], "/index.php/logout", [AuthController::class, "logout"]);
+$app->router->get("/index.php/profile", [SiteController::class, "profile"]);
 // run 
 $app->run();

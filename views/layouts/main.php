@@ -15,39 +15,39 @@ use cleveruz\phpmvc\Application; ?>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">MVC</a>
+            <a class="navbar-brand" href="/index.php/">MVC</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/index.php/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/welcome">Welcome</a>
+                        <a class="nav-link" href="/index.php/welcome">Welcome</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About Us</a>
+                        <a class="nav-link" href="/index.php/about">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/index.php/contact">Contact</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <?php if (Application::$app->isGuest()) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/signIn">Sign In</a>
+                            <a class="nav-link" href="/index.php/signIn">Sign In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/signUp">Sign Up</a>
+                            <a class="nav-link" href="/index.php/signUp">Sign Up</a>
                         </li>
                     <?php else : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/profile">Profile</a>
+                            <a class="nav-link" href="/index.php/profile">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout"><?= Application::$app->user->displayName() ?>(Logout)</a>
+                            <a class="nav-link" href="/index.php/logout"><?= Application::$app->user->displayName() ?>(Logout)</a>
                         </li>
                     <?php endif; ?>
                 </ul>
