@@ -22,7 +22,7 @@ class LoginForm extends ModelForm
     public function login(): bool
     {
         $model = User::find('username', $this->username);
-        if ($model->validPassword($this->password)) {
+        if ($model && $model->validPassword($this->password)) {
             return Application::$app->login($model);
         } else {
             $this->addError("username", "Your username or password is incorrect");
