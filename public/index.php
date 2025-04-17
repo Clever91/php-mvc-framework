@@ -30,6 +30,7 @@ $app = new Application($dirname, [
         "password" => $_ENV["DB_PASSWORD"]
     ]
 ]);
+
 // routes
 $app->router->get("/", [SiteController::class, "home"]);
 $app->router->get("/index.php/about", "about");
