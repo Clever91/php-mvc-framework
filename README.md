@@ -9,5 +9,5 @@ docker compose up -d
 ### Stopping
 docker compose stop
 
-### Distroy container 
+### Remove container 
 docker compose down
